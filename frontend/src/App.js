@@ -5,8 +5,23 @@ import SignUp from './pages/authentication/SignUp';
 import Home from './pages/Home/Home';
 import Services from './pages/Home/Services';
 import AddServices from './pages/admin/AddServices';
+import { useEffect } from 'react';
+import axios from 'axios';
 
 function App() {
+  useEffect(() => {
+    const token = localStorage.getItem('404Unbreakable')
+    try {
+
+
+      axios.post('http://localhost:800/manageauth', token).then((e) => {
+        console.log(e);
+      })
+    }
+    catch (error) {
+      console.log(error);
+    }
+  }, [])
   return (
     <div className={style.parent}>
       {/* hello world */}

@@ -72,7 +72,7 @@ export default function SignUp() {
                                 onChange={valuesH}
                                 className="form-control"
                                 id="exampleInputEmail1"
-                                name="phoneNumber"
+                                name="confirmPassword"
                                 aria-describedby="emailHelp"
                                 value={values.confirmPassword}
                             />

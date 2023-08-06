@@ -1,12 +1,16 @@
 import { useNavigate } from "react-router-dom";
 import logincss from "./Login.module.css";
 import { useState } from "react";
+import axios from "axios";
 
 export default function Login() {
-    const submitH = (e) => {
+    const submitH = async (e) => {
         e.preventDefault()
-        console.log(values);
+        // console.log(values);
         setvalues(defaultValue)
+        let data = await axios.post('http://localhost:800/checkuser', values)
+        localStorage.setItem('404Unbreakable', data.data)
+        console.log(data.data);
     }
     const defaultValue = {
         password: "",
