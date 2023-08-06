@@ -18,15 +18,16 @@ app.get('/', (req, res) => {
 
 app.post('/saveuser', async (req, res) => {
     console.log(req.body);
-    // try {
-        const user =await new userSchema(req.body)
+    try {
+        const user = await new userSchema(req.body)
         await user.save()
         res.send('ok')
-    // } catch (error) {
-        // res.send(error)
-    // }
+    } catch (error) {
+        res.send(error)
+    }
 })
 app.listen(port, () => {
     console.log(`server running on port ${port} sucessfully...`);
+    console.log('DB Connecting... wait');
     dbConnector()
 })

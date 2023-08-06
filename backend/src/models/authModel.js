@@ -14,7 +14,7 @@ const userSchema = mongoose.model('users', new mongoose.Schema({
         type: String,
         unique: true,
     },
-    phoneNumber: {
+    confirmPassword: {
         required: true,
         type: String,
         unique: true,

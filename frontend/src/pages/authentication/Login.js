@@ -24,7 +24,7 @@ export default function Login() {
             <div className={logincss.login}>
                 <div className={logincss.head}>
                     <p>
-                        Welcome to <span style={{ color: "#F46A06" }}>Islamia</span>
+                        Welcome to <span style={{ color: "#F46A06" }}>Ameen's Mart</span>
                     </p>
                 </div>
                 <p>Sign In</p>

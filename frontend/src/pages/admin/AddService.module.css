@@ -1,0 +1,26 @@
+.parent {
+    position: relative;
+    width: 100%;
+}
+
+.adddata {
+    position: fixed;
+    top: 0%;
+    left: 0%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100% !important;
+    padding: 2rem;
+    margin: auto;
+    background-color: #fafafa;
+    display: none;
+}
+
+.parent > div:nth-child(3) {
+    overflow-x: scroll;
+}
+.parent > div:nth-child(3) > table {
+    min-width: 650px;
+}

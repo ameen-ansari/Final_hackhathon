@@ -15,7 +15,7 @@ export default function SignUp() {
         password: "",
         email: "",
         userName: "",
-        phoneNumber: "",
+        confirmPassword: "",
     }
     let [values, setvalues] = useState(defaultValue)
     function valuesH(e) {
@@ -27,7 +27,7 @@ export default function SignUp() {
             <div className={logincss.login}>
                 <div className={logincss.head}>
                     <p>
-                        Welcome to <span style={{ color: "#F46A06" }}>Islamia</span>
+                        Welcome to <span style={{ color: "#F46A06" }}>Ameen's Mart</span>
                     </p>
                 </div>
                 <p>Sign up</p>
@@ -64,7 +64,7 @@ export default function SignUp() {
                         </div>
                         <div className="mb-3">
                             <label htmlFor="exampleInputEmail1" className="form-label">
-                                Contact Number
+                                Password
                             </label>
                             <input
                                 placeholder="Contact Number"
@@ -74,12 +74,12 @@ export default function SignUp() {
                                 id="exampleInputEmail1"
                                 name="phoneNumber"
                                 aria-describedby="emailHelp"
-                                value={values.phoneNumber}
+                                value={values.confirmPassword}
                             />
                         </div>
                         <div className="mb-3">
                             <label htmlFor="exampleInputPassword1" className="form-label">
-                                Password
+                                Confirm Password
                             </label>
                             <input
                                 placeholder="Password"
