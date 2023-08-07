@@ -12,9 +12,9 @@ export default function Login() {
             if (res.data.message === 'SuccessFully Login') {
                 alert('SuccessFully Login')
                 navigate('/')
-              } else {
+            } else {
                 alert(res.data.message)
-              }
+            }
             alert(res.data.message)
             setvalues(defaultValue)
         } catch (error) {
