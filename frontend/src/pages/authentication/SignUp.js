@@ -5,17 +5,28 @@ import axios from "axios";
 
 export default function SignUp() {
     const navigate = useNavigate()
-    const submitH = async (e) => {
-        e.preventDefault()
-        console.log(values);
-        setvalues(defaultValue)
-        await axios.post('http://localhost:800/saveuser', values)
-    }
     const defaultValue = {
-        password: "",
+        password: "123",
         email: "",
         userName: "",
-        confirmPassword: "",
+        confirmPassword: "123",
+    }
+    const submitH = async (e) => {
+        e.preventDefault()
+        if (values.confirmPassword === values.password) {
+            let res = await axios.post('http://localhost:800/signup', {
+                password: values.password,
+                email: values.email,
+                userName: values.userName,
+            })
+            alert(res.data.message)
+            if (res.data.message === 'User Saved') {
+                setvalues(defaultValue)
+                navigate('/login')
+            }
+        } else {
+            alert('Password Incorrect')
+        }
     }
     let [values, setvalues] = useState(defaultValue)
     function valuesH(e) {
@@ -68,7 +79,7 @@ export default function SignUp() {
                             </label>
                             <input
                                 placeholder="Contact Number"
-                                type="text"
+                                type="password"
                                 onChange={valuesH}
                                 className="form-control"
                                 id="exampleInputEmail1"

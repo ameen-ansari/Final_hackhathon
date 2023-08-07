@@ -6,11 +6,20 @@ import axios from "axios";
 export default function Login() {
     const submitH = async (e) => {
         e.preventDefault()
-        // console.log(values);
-        setvalues(defaultValue)
-        let data = await axios.post('http://localhost:800/checkuser', values)
-        localStorage.setItem('404Unbreakable', data.data)
-        console.log(data.data);
+        try {
+            let res = await axios.post('http://localhost:800/login', values)
+            localStorage.setItem('404Unbreakable', res.data.token)
+            if (res.data.message === 'SuccessFully Login') {
+                alert('SuccessFully Login')
+                navigate('/')
+              } else {
+                alert(res.data.message)
+              }
+            alert(res.data.message)
+            setvalues(defaultValue)
+        } catch (error) {
+            alert(error)
+        }
     }
     const defaultValue = {
         password: "",

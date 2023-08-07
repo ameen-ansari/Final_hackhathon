@@ -17,31 +17,66 @@ app.get('/', (req, res) => {
     res.send('welcome');
 })
 
-app.post('/saveuser', async (req, res) => {
+app.post('/signup', async (req, res) => {
     try {
-        let token = await jwt.sign({ email: req.body.email, password: req.body.password }, 'yustyu:Pdjh');
-        const user = await new userSchema({ ...req.body, token })
+        let token = jwt.sign({ email: req.body.email, password: req.body.password }, 'a')
+        const user = new userSchema({ ...req.body, token })
         await user.save()
-        res.send('ok')
+        res.send({ message: 'User Saved' })
     } catch (error) {
-        res.send(error)
+        res.send({ message: 'Something Went Wrong', error: error })
+        console.log(error);
     }
 })
-app.post('/manageauth', async (req, res) => {
-    // let user = await userSchema.find({ token:req.body })
-    console.log(req.body);
-    res.status(200).send({ token:req.body })
-})
-app.post('/checkuser', async (req, res) => {
 
+app.post('/manageauth', async (req, res) => {
     try {
-        let token = await jwt.sign({ email: req.body.email, password: req.body.password }, 'yustyu:Pdjh');
-        let user = await userSchema.find({ token })
-        console.log(user);
-        res.status(200).send(user)
+        let user = await userSchema.findOne({ token: req.body.token })
+        if (user) {
+            res.send({
+                message: "verified"
+            })
+        } else {
+            res.send({
+                message: "user not verified"
+            })
+        }
     } catch (error) {
-        res.send(error)
+        res.send({ message: 'Something Went Wrong', error: error })
+        console.log(error);
     }
+})
+
+app.post('/login', async (req, res) => {
+    try {
+        let user = await userSchema.findOne({ email: req.body.email })
+        if (user.password === req.body.password) {
+            res.status(200).send({ token: user.token, message: 'SuccessFully Login' })
+        } else {
+            res.status(200).send({ message: 'Incorrect Password' })
+        }
+    } catch (error) {
+        res.send({ message: 'Something Went Wrong', error: error })
+        console.log(error);
+    }
+
+    // try {
+    //     let user = userSchema.findOne({ token })
+    //     if (user) {
+    //         res.status(200).send({
+    //             message: token,
+    //             user
+    //         })
+    //     } else {
+    //         res.send({
+    //             message: 'Something Went Wrong'
+    //         })
+
+    //     }
+    // } catch (error) {
+    //     res.send({ message: 'Something Went Wrong', error: error })
+    //     console.log(error);
+    // }
 })
 app.listen(port, () => {
     console.log(`server running on port ${port} sucessfully...`);

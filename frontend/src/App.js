@@ -1,4 +1,4 @@
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, useNavigate } from 'react-router-dom';
 import style from './App.module.css';
 import Login from './pages/authentication/Login';
 import SignUp from './pages/authentication/SignUp';
@@ -9,13 +9,18 @@ import { useEffect } from 'react';
 import axios from 'axios';
 
 function App() {
+  const navigate = useNavigate()
   useEffect(() => {
-    const token = localStorage.getItem('404Unbreakable')
     try {
-
-
-      axios.post('http://localhost:800/manageauth', token).then((e) => {
-        console.log(e);
+      const token = localStorage.getItem('404Unbreakable')
+      axios.post('http://localhost:800/manageauth', { token: token }).then((res) => {
+        console.log(res.data.message);
+        if (res.data.message !== 'verified') {
+          alert('user not  verified')
+          navigate('/login')
+        } else {
+          alert('user verified')
+        }
       })
     }
     catch (error) {
