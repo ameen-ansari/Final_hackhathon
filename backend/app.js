@@ -9,6 +9,7 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 const cors = require('cors');
 const userSchema = require("./src/models/authModel");
+const services = require("./src/models/services");
 app.use(cors());
 //port Number
 const port = 800
@@ -23,6 +24,16 @@ app.post('/signup', async (req, res) => {
         const user = new userSchema({ ...req.body, token })
         await user.save()
         res.send({ message: 'User Saved' })
+    } catch (error) {
+        res.send({ message: 'Something Went Wrong', error: error })
+        console.log(error);
+    }
+})
+app.post('/addpro', async (req, res) => {
+    try {
+        const service = new services(req.body)
+        await service.save()
+        res.send({ message: 'Product Added' })
     } catch (error) {
         res.send({ message: 'Something Went Wrong', error: error })
         console.log(error);
@@ -59,24 +70,6 @@ app.post('/login', async (req, res) => {
         res.send({ message: 'Something Went Wrong', error: error })
         console.log(error);
     }
-
-    // try {
-    //     let user = userSchema.findOne({ token })
-    //     if (user) {
-    //         res.status(200).send({
-    //             message: token,
-    //             user
-    //         })
-    //     } else {
-    //         res.send({
-    //             message: 'Something Went Wrong'
-    //         })
-
-    //     }
-    // } catch (error) {
-    //     res.send({ message: 'Something Went Wrong', error: error })
-    //     console.log(error);
-    // }
 })
 app.listen(port, () => {
     console.log(`server running on port ${port} sucessfully...`);

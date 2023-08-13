@@ -1,7 +1,18 @@
 import React, { useState } from 'react'
 import style from './AddService.module.css'
+import axios from 'axios'
 
 function AddServices() {
+    const defaultValue = {
+        name: "",
+        catagory: "",
+        description: "",
+        color: "",
+        size: "",
+        prize: "",
+        quantity: "",
+    }
+    let [values, setvalues] = useState(defaultValue)
     const [form, setform] = useState(false)
     let sampleData = {
         name: 'reshmi Suit',
@@ -26,6 +37,19 @@ function AddServices() {
         sampleData2,
         sampleData2,
     ]
+    function valuesH(e) {
+        let inputs = { [e.target.name]: e.target.value }
+        setvalues({ ...values, ...inputs })
+    }
+    const submitH = async () => {
+        try {
+            let res = await axios.post('http://localhost:800/addpro', values)
+            alert(res.data.message)
+        } catch (error) {
+            alert(error)
+        }
+
+    }
     return (
         <div className={style.parent}>
             <h2 className='text-center my-3'>Admin Panel</h2>
@@ -88,17 +112,19 @@ function AddServices() {
                 form ?
                     <div className={`${style.adddata} d-flex flex-column gap-4`}>
                         <h3>Add Product </h3>
-                        <input type="text" className="form-control" placeholder="Enter the Product Name" ar ia-label="Recipient's username" aria-describedby="basic-addon2" />
-                        <input type="text" className="form-control" placeholder="Enter Catagary" aria-label="Recipient's username" aria-describedby="basic-addon2" />
-                        <input type="text" className="form-control" placeholder="Enter Description" aria-label="Recipient's username" aria-describedby="basic-addon2" />
-                        <input type="text" className="form-control" placeholder="Enter Color" aria-label="Recipient's username" aria-describedby="basic-addon2" />
-                        <input type="text" className="form-control" placeholder="Enter Size" aria-label="Recipient's username" aria-describedby="basic-addon2" />
-                        <input type="number" className="form-control" placeholder="Enter Price" aria-label="Recipient's username" aria-describedby="basic-addon2" />
-                        <input type="number" className="form-control" placeholder="Enter Quantity" aria-label="Recipient's username" aria-describedby="basic-addon2" />
-                        <input type="file" className="form-control" placeholder="Enter Price" aria-label="Recipient's username" aria-describedby="basic-addon2" />
+                        <input onChange={valuesH} name='name' value={values.name} type="text" className="form-control" placeholder="Enter the Product Name" ar ia-label="Recipient's username" aria-describedby="basic-addon2" />
+                        <input onChange={valuesH} name='catagory' value={values.catagory} type="text" className="form-control" placeholder="Enter Catagary" aria-label="Recipient's username" aria-describedby="basic-addon2" />
+                        <input onChange={valuesH} name='description' value={values.description} type="text" className="form-control" placeholder="Enter Description" aria-label="Recipient's username" aria-describedby="basic-addon2" />
+                        <input onChange={valuesH} name='color' value={values.color} type="text" className="form-control" placeholder="Enter Color" aria-label="Recipient's username" aria-describedby="basic-addon2" />
+                        <input onChange={valuesH} name='size' value={values.size} type="text" className="form-control" placeholder="Enter Size" aria-label="Recipient's username" aria-describedby="basic-addon2" />
+                        <input onChange={valuesH} name='prize' value={values.prize} type="number" className="form-control" placeholder="Enter Price" aria-label="Recipient's username" aria-describedby="basic-addon2" />
+                        <input onChange={valuesH} name='quantity' value={values.quantity} type="number" className="form-control" placeholder="Enter Quantity" aria-label="Recipient's username" aria-describedby="basic-addon2" />
+                        <input onChange={valuesH} name='img' value={values.img} type="file" className="form-control" placeholder="Add Image" aria-label="Recipient's username" aria-describedby="basic-addon2" />
                         <button onClick={
                             () => {
                                 setform(!form)
+                                submitH()
+                                console.log(values);
                             }
                         } className='btn btn-primary'>Submit</button>
                     </div> : null}

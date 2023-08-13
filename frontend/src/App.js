@@ -24,7 +24,7 @@ function App() {
       })
     }
     catch (error) {
-      console.log(error);
+      alert(error)
     }
   }, [])
   return (
