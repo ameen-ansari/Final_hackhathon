@@ -1,7 +1,10 @@
 import React from 'react';
 import logo from '../../assets/logo.jpg'
+import { useNavigate } from 'react-router-dom';
 
 const Navbar = () => {
+    const navigate = useNavigate()
+
     return (
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
             <div className="container">
@@ -12,7 +15,7 @@ const Navbar = () => {
                 <div className="collapse navbar-collapse" id="navbarNav">
                     <ul className="navbar-nav m-auto">
                         <li className="nav-item">
-                            <p className="btn  p-3 nav-link" >Home</p>
+                            <p onClick={()=>{navigate('/addservices')}} className="btn  p-3 nav-link" >Admin Control</p>
                         </li>
                         <li className="nav-item">
                             <p className="btn p-3 nav-link" >About</p>
